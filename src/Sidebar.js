@@ -18,7 +18,7 @@ function Sidebar() {
         <div className="sidebar"> {/*(start main sidebar div)*/}
 
             <div className="sidebar__top"> {/*(start sidebar__top div)*/}
-                <h3>JJ</h3>
+                <h3>JJ & Friends Season 3</h3>
                 <ExpandMoreIcon />
             </div> {/*(end sidebar__top div)*/}
 

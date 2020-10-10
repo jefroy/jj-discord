@@ -72,7 +72,7 @@
 }
 
 .sidebar__voiceIcons > .MuiSvgIcon-root{
-    padding: 10px;
+    padding: 5px;
 }
 
 .sidebar__profileInfo > h3{
@@ -80,5 +80,5 @@
 }
 
 .sidebar__profileIcons > .MuiSvgIcon-root{
-    padding: 10px;
+    padding: 5px;
 }
