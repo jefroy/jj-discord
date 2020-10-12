@@ -12,8 +12,12 @@ import SignalCellularAltIcon from '@material-ui/icons/SignalCellularAlt';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import CallIcon from '@material-ui/icons/Call';
 import Avatar from "@material-ui/core/Avatar";
+import {useSelector} from "react-redux";
+import {selectUser} from "./features/userSlice";
+import {auth} from "./firebase";
 
 function Sidebar() {
+    const user = useSelector(selectUser); // grab logged in user
     return (
         <div className="sidebar"> {/*(start main sidebar div)*/}
 
@@ -56,10 +60,10 @@ function Sidebar() {
             </div> {/*(end sidebar__voice div)*/}
 
             <div className="sidebar__profile">
-                <Avatar src={"https://scontent.fpos3-1.fna.fbcdn.net/v/t1.0-9/82552538_112295250313283_2725657113001984000_n.jpg?_nc_cat=108&_nc_sid=09cbfe&_nc_ohc=dgP1-15E2bMAX-QcKz9&_nc_ht=scontent.fpos3-1.fna&oh=8f14d5163cb415386bb31d9ac3ea1bdd&oe=5FA7EFF8"} />
+                <Avatar onClick={() => auth.signOut()} src={user.photo} />
                 <div className="sidebar__profileInfo">
-                    <h3>@jj</h3>
-                    <p>#myId</p>
+                    <h3>{user.displayName}</h3>
+                    <p>#{user.uid.substr(0,5)}</p>
                 </div>
                 <div className="sidebar__profileIcons">
                     {/*    icons next to profile pic: mic icon, headphones icon, cog*/}
