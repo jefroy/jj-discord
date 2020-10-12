@@ -1,13 +1,35 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Sidebar from './Sidebar';
 import Chat from "./Chat";
-import {useSelector} from "react-redux";
-import {selectUser} from './features/userSlice';
+import {useDispatch, useSelector} from "react-redux";
+import {login, logout, selectUser} from './features/userSlice';
 import Login from "./Login";
+import {auth} from "./firebase";
 
 function App() {
-    const user = useSelector(selectUser);
+    const user = useSelector(selectUser); // grab the user from the data layer (REDUX)
+    const dispatch = useDispatch();
+    // every time user changes, fire this effect
+    useEffect(() =>{
+        // if the user state changes, onAuthStateChanged is like a listener for the auth
+        auth.onAuthStateChanged((authUser) => {
+            console.log('user: ', authUser);
+            if(authUser){
+                // the user is logged in
+                dispatch(login({
+                    uid: authUser.uid,
+                    photo: authUser.photoURL,
+                    email: authUser.email,
+                    displayName: authUser.displayName,
+                }));
+            } else{
+                // the user is logged out
+                dispatch(logout());
+            }
+        })
+    }, [dispatch]);
+
   return (
     // bem naming convention (from App to app)
     <div className="app">
