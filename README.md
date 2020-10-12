@@ -1,3 +1,7 @@
+TODO:
+1. Fix chat input to set a max message lenght and prevent null strings and spaces from being sent.
+2. component/online_users
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts

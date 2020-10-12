@@ -27,4 +27,4 @@ yarn-error.log*
 .vscode/
 
 # sensitive api stuff
-src/env/firebase_config.js
+# src/env/firebase_config.js
