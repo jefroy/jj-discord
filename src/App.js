@@ -14,7 +14,6 @@ function App() {
     useEffect(() =>{
         // if the user state changes, onAuthStateChanged is like a listener for the auth
         auth.onAuthStateChanged((authUser) => {
-            console.log('user: ', authUser);
             if(authUser){
                 // the user is logged in
                 dispatch(login({

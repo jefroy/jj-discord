@@ -2,17 +2,17 @@
 import * as React from 'react';
 import "./SidebarChannel.css";
 
-function SidebarChannels({id, channel}) {
+function SidebarChannel({channelName}) {
     return (
         <div className="sidebarChannel">
             <h4>
                 <span className="sidebarChannel_hash">
                     #
                 </span>
-                YouTube
+                {channelName}
             </h4>
         </div>
     );
 }
 
-export default SidebarChannels;
+export default SidebarChannel;

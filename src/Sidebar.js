@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import "./Sidebar.css";
-import SidebarChannels from "./SidebarChannels";
+import SidebarChannel from "./SidebarChannel";
 
 // icons
 import MicIcon from '@material-ui/icons/Mic';
@@ -14,10 +14,36 @@ import CallIcon from '@material-ui/icons/Call';
 import Avatar from "@material-ui/core/Avatar";
 import {useSelector} from "react-redux";
 import {selectUser} from "./features/userSlice";
-import {auth} from "./firebase";
+import db, {auth} from "./firebase";
 
 function Sidebar() {
     const user = useSelector(selectUser); // grab logged in user
+    const [channels, setChannels] = useState([]); // state for channels
+
+    // state manager for channels
+    useEffect(() => {
+        // onSnapshot looks for real time changes
+        db.collection('channels').onSnapshot(snapshot => (
+            // for each doc, return an object, refers to table in firestore (db)
+        setChannels(snapshot.docs.map(doc => ({
+            id: doc.id,
+            channel: doc.data(), // channel name
+        })))
+        ))
+    }, []);
+
+    const handleAddChannel = () => {
+        // make the plus button work
+        const channelName = prompt("Enter a name for your new text channel!");
+        console.log('user const in channelhandler: ', user);
+        if(channelName){
+            db.collection('channels').add({
+                channelName: channelName,
+                userId: user.uid
+            });
+        }
+    }
+
     return (
         <div className="sidebar"> {/*(start main sidebar div)*/}
 
@@ -33,14 +59,18 @@ function Sidebar() {
                         <ExpandMoreIcon />
                         <h4>Text Channels</h4>
                     </div> {/*(end sidebar__header div)*/}
-                    <AddIcon className="sidebar__addChannel" />
+                    <AddIcon onClick={handleAddChannel} className="sidebar__addChannel" />
                 </div> {/*(end sidebar__channelsHeader div)*/}
 
                 <div className="sidebar__channelsList"> {/*(start sidebar__channelsList div)*/}
-                    <SidebarChannels />
-                    <SidebarChannels />
-                    <SidebarChannels />
-                    <SidebarChannels />
+                    {channels.map(({channel}) => (
+                        // todo: match channel.uid with logged in user's id
+                        <SidebarChannel
+                            key={channel.id}
+                            id={channel.id}
+                            channelName={channel.channelName}
+                        />
+                    ))}
                 </div> {/*(end sidebar__channelsList div)*/}
             </div> {/*(end sidebar__channels div)*/}
 
