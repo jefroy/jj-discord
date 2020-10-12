@@ -12,6 +12,7 @@ import SignalCellularAltIcon from '@material-ui/icons/SignalCellularAlt';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import CallIcon from '@material-ui/icons/Call';
 import Avatar from "@material-ui/core/Avatar";
+// end icons
 import {useSelector} from "react-redux";
 import {selectUser} from "./features/userSlice";
 import db, {auth} from "./firebase";
@@ -25,10 +26,10 @@ function Sidebar() {
         // onSnapshot looks for real time changes
         db.collection('channels').onSnapshot(snapshot => (
             // for each doc, return an object, refers to table in firestore (db)
-        setChannels(snapshot.docs.map(doc => ({
-            id: doc.id,
-            channel: doc.data(), // channel name
-        })))
+            setChannels(snapshot.docs.map(doc => ({
+                id: doc.id,
+                channel: doc.data(), // channel name, userid
+            })))
         ))
     }, []);
 
@@ -63,12 +64,12 @@ function Sidebar() {
                 </div> {/*(end sidebar__channelsHeader div)*/}
 
                 <div className="sidebar__channelsList"> {/*(start sidebar__channelsList div)*/}
-                    {channels.map(({channel}) => (
+                    {channels.map(({id, channel}) => (
                         // todo: match channel.uid with logged in user's id
                         <SidebarChannel
-                            key={channel.id}
-                            id={channel.id}
+                            id={id}
                             channelName={channel.channelName}
+                            key={id}
                         />
                     ))}
                 </div> {/*(end sidebar__channelsList div)*/}

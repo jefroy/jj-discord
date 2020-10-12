@@ -8,8 +8,9 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import SearchIcon from '@material-ui/icons/Search';
 import SendIcon from '@material-ui/icons/Send';
 import HelpIcon from '@material-ui/icons/Help';
+// end icons
 
-function ChatHeader() {
+function ChatHeader({ channelName }) {
     return (
         // bem naming convention (from ChatHeader to ChatHeader)
         <div className="chatHeader"> {/* main div */}
@@ -17,7 +18,7 @@ function ChatHeader() {
             <div className="chatHeader__left"> {/* chatHeader__left div */}
                 <h3>
                     <span className="chatHeader__hash">#</span>
-                    Test Channel Name
+                    {channelName}
                 </h3>
             </div> {/* chatHeader__left div */}
             <div className="chatHeader__right"> {/* chatHeader__right div */}
