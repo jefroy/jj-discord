@@ -1,4 +1,6 @@
-if: branch = $MAIN_BRANCH # master
+if: 
+  branch = $MAIN_BRANCH # master
+  branch = master
 language: node_js
 node_js:
   # - "12.18.3"
