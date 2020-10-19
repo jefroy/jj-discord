@@ -1,6 +1,17 @@
-if: 
-  branch = $MAIN_BRANCH # master
-  branch = master
+# blocklist
+branches:
+  except:
+  # - legacy
+  # - experimental
+
+# safelist
+branches:
+  only:
+  - master
+  - main
+  - $MAIN_BRANCH
+
+# build
 language: node_js
 node_js:
   # - "12.18.3"
@@ -16,5 +27,3 @@ install:
   - npm install -g firebase-tools
 after_success:
   - firebase deploy --token $FIREBASE_TOKEN
-on:
-  branch: $MAIN_BRANCH # master
